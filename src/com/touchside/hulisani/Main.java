@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Main {
 
@@ -21,22 +22,25 @@ public class Main {
 
     public static void main(String[] args) {
 
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter book file name & extension: ");
+        String fileName = scanner.next();
+        System.out.println();
+
         try {
-            readFile();
+            readFile(fileName);
             calculateValues();
-            System.out.println("Most frequent word: {" + mostFreqWord + "} occurred " + mostFreqWordVal + " times");
-            System.out.println("Most frequent 7-character word: {" + mostFreq7chWord + "} occurred " + mostFreq7chWordVal + " times}");
-            System.out.println("Highest scoring word(s) (according to the score table): {" + highScoreWord + "} with a score of " + highScore);
+            System.out.println("Most frequent word: '" + mostFreqWord + "' occurred " + mostFreqWordVal + " times");
+            System.out.println("Most frequent 7-character word: '" + mostFreq7chWord + "' occurred " + mostFreq7chWordVal + " times");
+            System.out.println("Highest scoring word(s) (according to the score table): '" + highScoreWord + "' with a score of " + highScore);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
-
-
     }
 
-    private static void readFile() throws IOException {
-        try (BufferedReader br = new BufferedReader(new FileReader("book1.txt"))) {//automatic resource management
+    private static void readFile(String fileName) throws IOException {
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {//automatic resource management
             String line = br.readLine();
 
             while (line != null) {
